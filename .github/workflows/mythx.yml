@@ -3,9 +3,7 @@ name: Run MythX analysis
 on:
   push:
     branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
-
+    
 jobs:
   analyze:
     runs-on: ubuntu-latest
