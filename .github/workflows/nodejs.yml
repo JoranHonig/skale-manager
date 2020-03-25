@@ -31,6 +31,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - run: npm i
     - run: pip3 install mythx-cli
-    - run: mythx analyze --ci
+    - run: mythx --ci analyze 
       env: 
         MYTHX_API_KEY: ${{ secrets.MythX_API_KEY}}
