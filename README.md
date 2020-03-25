@@ -10,7 +10,7 @@ SKALE Manager controls Nodes, Validators, and SKALE chains. It also contains con
 
 ## Upgradeability
 
-This system is upgradeable and uses the Separate Data and Functionality approach.
+This system is upgradeable and uses the Separate Data and Functionality approach. 
 
 1) ContractManager: main contract of Separate Data and Functionality approach. It stores all contract's addresses in the SKALE Manager system.
 2) Permissions: connectable contract to every SKALE Manager contract except ContractManager. It stores address of ContractManager and a modifier that forbids calls only from the given contract
