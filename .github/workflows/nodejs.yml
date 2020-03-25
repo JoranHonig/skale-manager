@@ -41,10 +41,10 @@ jobs:
         env: 
           MYTHX_API_KEY: ${{ secrets.MythX_API_KEY}}
       - name: Upload analysis results
-          uses: actions/upload-artifact@v1
-          with:
-            name: mythx_results
-            path: mythx_results.md
+        uses: actions/upload-artifact@v1
+        with:
+          name: mythx_results
+          path: mythx_results.md
 #     - name: comment PR
 #       uses: unsplash/comment-on-pr@master
 #       env:
