@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Run MythX analysis
 
 on:
@@ -11,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,17 +16,38 @@ jobs:
         python-version: [3.8]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-    - run: npm i
-    - run: pip3 install mythx-cli
-    - run: mythx --ci analyze 
-      env: 
-        MYTHX_API_KEY: ${{ secrets.MythX_API_KEY}}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: npm i
+      
+  analyze:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        python-version: [3.8]
+    steps:
+      - run: pip3 install mythx-cli
+
+      - run: mythx --ci analyze --format tabular --output mythx_results.md
+        env: 
+          MYTHX_API_KEY: ${{ secrets.MythX_API_KEY}}
+      - name: Upload analysis results
+          uses: actions/upload-artifact@v1
+          with:
+            name: mythx_results
+            path: mythx_results.md
+#     - name: comment PR
+#       uses: unsplash/comment-on-pr@master
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         msg: "Check out this message!"
