@@ -28,7 +28,7 @@ jobs:
       - run: npm i
       - run: pip3 install mythx-cli
 
-      - run: mythx --ci analyze --format tabular --output mythx_results.md
+      - run: mythx --ci analyze > mythx_results.md 
         env: 
           MYTHX_API_KEY: ${{ secrets.MythX_API_KEY}}
       - name: Upload analysis results
