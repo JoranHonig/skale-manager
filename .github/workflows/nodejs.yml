@@ -26,15 +26,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: npm i
-      
-  analyze:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-        python-version: [3.8]
-    steps:
       - run: pip3 install mythx-cli
 
       - run: mythx --ci analyze --format tabular --output mythx_results.md
